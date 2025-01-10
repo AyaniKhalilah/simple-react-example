@@ -1,35 +1,78 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+const choices = [
+  { name: 'Rock', icon: '🪨 ' },
+  { name: 'Paper', icon: '📄 ' },
+  { name: 'Scissors', icon: '✂️ ' },
+  ];
 
+const Header = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h1>Rock-Paper-Scissors Game</h1>
+      <p className="instructions">Choose Rock, Paper, or Scissors to play against the computer!</p>
+    </div>
+  );
+};
 
-export default App
+const Scoreboard = () => {
+  return(
+    <div id="scoreboard">
+      <p>Player Score: <span id="player-score">0</span></p>
+      <p>Computer Score: <span id="computer-score">0</span></p>
+    </div>
+  );
+};
+
+const Choices = () => {
+  return(
+    <div className="choices">
+        {
+          choices.map((choice, index) => (
+            <button key={index}>{choice.icon}{choice.name}</button>
+          ))
+        }
+    </div>
+  );
+};
+
+const Result = () => {
+  return(
+    <div id="result">
+        <p></p>
+        <p></p>
+    </div>
+  );
+};
+
+const Reset = () => {
+  return(
+    <button id="reset">Reset Game</button>
+  );
+};
+
+const Footer = () => {
+  return(
+    <footer>
+        <div>
+          <p>&copy; Ayani 2025 😉</p>
+        </div>
+    </footer>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      <Header/>
+      <Scoreboard/>
+      <Choices/>
+      <Result/>
+      <Reset/>
+      <Footer/>
+    </div>
+);
+    
+ }
+ export default App;
