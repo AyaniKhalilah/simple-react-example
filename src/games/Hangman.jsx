@@ -239,7 +239,7 @@ const GuessedWord =({guessedWord}) => {
 
 
 // Main Hangman game component.
-const Hangman = ({onSetGameResult, wrongCount, incrWrongCount, setWrongCount}) => {
+const Hangman = ({onSetGameResult, wrongCount, setWrongCount}) => {
     const [secretWord, setSecretWord] = useState(randomSecretWord());
     const [guessedWord, setGuessedWord] = useState(new Array(secretWord.length).fill('-'));
     const [didWinGame, setDidWinGame] = useState(false);
@@ -274,7 +274,8 @@ const Hangman = ({onSetGameResult, wrongCount, incrWrongCount, setWrongCount}) =
 
         } else { 
             // Track the number of wrong guesses
-            incrWrongCount();
+            setWrongCount(wrongCount + 1);
+            console.log(wrongCount);
             
         }
 

@@ -18,10 +18,6 @@ const App = () => {
 
   console.log(selectedGame);
 
-  const incrWrongCount = () => {
-    setWrongCount(wrongCount + 1);
-  }
-
   const updateScores = (winner) => {
     if (winner === "Player"){
       setPlayerScore(playerScore + 1);
@@ -44,7 +40,7 @@ const App = () => {
       <GameSelector onGameSelect = {setSelectedGame}/>
       {selectedGame === "Rock Paper Scissors" && <RockPaperScissors updateScores={updateScores} onSetGameResult={setGameResult}/>}
       {selectedGame === "Higher or Lower" && <HigherOrLower updateScores={updateScores} onSetGameResult={setGameResult}/>}
-      {selectedGame === "Hangman" && <Hangman onSetGameResult={setGameResult} incrWrongCount={incrWrongCount} wrongCount={wrongCount} setWrongCount={setWrongCount}/>}
+      {selectedGame === "Hangman" && <Hangman onSetGameResult={setGameResult} wrongCount={wrongCount} setWrongCount={setWrongCount}/>}
       {selectedGame === "Trivia" && <TriviaGame/>}
       {!selectedGame && <p></p>}
       <button id="reset" onClick={reset}>Reset</button>
