@@ -1,78 +1,56 @@
 import { useState } from 'react'
 import './App.css'
-
-const choices = [
-  { name: 'Rock', icon: '🪨 ' },
-  { name: 'Paper', icon: '📄 ' },
-  { name: 'Scissors', icon: '✂️ ' },
-  ];
-
-const Header = () => {
-  return (
-    <div>
-      <h1>Rock-Paper-Scissors Game</h1>
-      <p className="instructions">Choose Rock, Paper, or Scissors to play against the computer!</p>
-    </div>
-  );
-};
-
-const Scoreboard = () => {
-  return(
-    <div id="scoreboard">
-      <p>Player Score: <span id="player-score">0</span></p>
-      <p>Computer Score: <span id="computer-score">0</span></p>
-    </div>
-  );
-};
-
-const Choices = () => {
-  return(
-    <div className="choices">
-        {
-          choices.map((choice, index) => (
-            <button key={index}>{choice.icon}{choice.name}</button>
-          ))
-        }
-    </div>
-  );
-};
-
-const Result = () => {
-  return(
-    <div id="result">
-        <p></p>
-        <p></p>
-    </div>
-  );
-};
-
-const Reset = () => {
-  return(
-    <button id="reset">Reset Game</button>
-  );
-};
-
-const Footer = () => {
-  return(
-    <footer>
-        <div>
-          <p>&copy; Ayani 2025 😉</p>
-        </div>
-    </footer>
-  );
-};
+import GameSelector from './components/GameSelector';
+import Scoreboard from './components/ScoreBoard';
+import Result from './components/Result';
+import RockPaperScissors from './games/RockPaperScissors';
+import HigherOrLower from './games/HigherOrLower';
+import Hangman from './games/Hangman';
+import TriviaGame from './games/TriviaGame';
 
 const App = () => {
+
+  const [selectedGame, setSelectedGame] = useState(null);
+  const [gameResult, setGameResult] = useState(null);
+  const [playerScore, setPlayerScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(0);
+  const [wrongCount, setWrongCount] = useState(0);
+
+  console.log(selectedGame);
+
+  const incrWrongCount = () => {
+    setWrongCount(wrongCount + 1);
+  }
+
+  const updateScores = (winner) => {
+    if (winner === "Player"){
+      setPlayerScore(playerScore + 1);
+    } else if (winner === "Computer"){
+      setComputerScore(computerScore + 1);
+    }
+  }
+  const reset = () => {
+    setGameResult(null);
+    setPlayerScore(0);
+    setComputerScore(0);
+  }
+
   return (
     <div>
-      <Header/>
-      <Scoreboard/>
-      <Choices/>
-      <Result/>
-      <Reset/>
-      <Footer/>
+      <h1>Ayani's Arcade 👾</h1>
+      <Scoreboard playerScore={playerScore} computerScore={computerScore}/>
+      <Result wrongCount={wrongCount} result={gameResult}/>
+      <hr/>
+      <GameSelector onGameSelect = {setSelectedGame}/>
+      {selectedGame === "Rock Paper Scissors" && <RockPaperScissors updateScores={updateScores} onSetGameResult={setGameResult}/>}
+      {selectedGame === "Higher or Lower" && <HigherOrLower updateScores={updateScores} onSetGameResult={setGameResult}/>}
+      {selectedGame === "Hangman" && <Hangman onSetGameResult={setGameResult} incrWrongCount={incrWrongCount} wrongCount={wrongCount} setWrongCount={setWrongCount}/>}
+      {selectedGame === "Trivia" && <TriviaGame/>}
+      {!selectedGame && <p></p>}
+      <button id="reset" onClick={reset}>Reset</button>
     </div>
-);
+  );
     
  }
+
  export default App;

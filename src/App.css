@@ -4,6 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
+button {
+  margin: 5px; /* space between the buttons */
+}
 
 .logo {
   height: 6em;
