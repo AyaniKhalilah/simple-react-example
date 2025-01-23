@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 
 
-
 const TriviaGame = () => {
 
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [isComplete, setIsComplete] = useState(false);
+    const [score, setScore] = useState(0);
     
     useEffect(() => {
         //fetch("https://opentdb.com/api.php?amount=5&type=multiple")
@@ -25,9 +26,27 @@ const TriviaGame = () => {
 
     const handleAnswer = (choice) => {
         console.log(choice);
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        if(currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            setIsComplete(true);
+        }
+
+        if (choice === questions[currentQuestionIndex].correct_answer){
+            console.log("right!");
+            setScore(score + 1);
+        } else{
+            console.log("Wrong answer");
+        }
         
     };
+
+    if (isComplete) {
+        return <div>
+            <h1>All Done!</h1>
+            <h2>Your score is: {score}/{questions.length}</h2>
+        </div>
+    }
 
     return (
         <div>

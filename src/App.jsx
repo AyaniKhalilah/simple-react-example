@@ -7,6 +7,7 @@ import RockPaperScissors from './games/RockPaperScissors';
 import HigherOrLower from './games/HigherOrLower';
 import Hangman from './games/Hangman';
 import TriviaGame from './games/TriviaGame';
+import OddOrEven from './games/OddOrEven';
 
 const App = () => {
 
@@ -42,6 +43,7 @@ const App = () => {
       {selectedGame === "Higher or Lower" && <HigherOrLower updateScores={updateScores} onSetGameResult={setGameResult}/>}
       {selectedGame === "Hangman" && <Hangman onSetGameResult={setGameResult} wrongCount={wrongCount} setWrongCount={setWrongCount}/>}
       {selectedGame === "Trivia" && <TriviaGame/>}
+      {selectedGame === "OddOrEven" && <OddOrEven updateScores={updateScores} onSetGameResult={setGameResult}/>}
       {!selectedGame && <p></p>}
       <button id="reset" onClick={reset}>Reset</button>
     </div>
